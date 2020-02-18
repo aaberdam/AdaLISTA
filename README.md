@@ -22,23 +22,23 @@ We demonstrate the ability of our model to handle complex and varying signal mod
 ### 1. Permuted Columns
 To run a small exmaple you may run the following:
 ```
-python main.py -c0 -ntrain 1000 -epochs 10 -sigsnr 25
+python main.py -c0 -ntrain 1000 -epochs 10 -sigsnr 30
 ```
-In this example the SNR of the signals is 25 [dB].
+In this example the SNR of the signals is 30 [dB].
 
 ### 2. Noisy Dictionaries
 To run a small exmaple you may run the following:
 ```
-python main.py -c1 -ntrain 1000 -epochs 10 -sigsnr 25 -n 20
+python main.py -c1 -ntrain 1000 -epochs 10 -sigsnr 30 -n 20
 ```
-In this example the SNR of the signals is 25 [dB], while the SNR of the dictionaries is 20 [dB].
+In this example the SNR of the signals is 30 [dB], while the SNR of the dictionaries is 20 [dB].
 
 ### 3. Random Dictionaries
 To run a small exmaple you may run the following:
 ```
-python main.py -c2 -ntrain 1000 -epochs 10 -sigsnr 25
+python main.py -c2 -ntrain 1000 -epochs 10 -sigsnr 30
 ```
-In this example the SNR of the signals is 25 [dB].
+In this example the SNR of the signals is 30 [dB].
 
 ## Image Inpainting
 We demonstrate the use of Ada-LISTA on natural image inpainting, which cannot be directly used with hard-coded models as LISTA. We show a clear advantage of Ada-LISTA versus its non-learned counterparts.
@@ -54,5 +54,4 @@ To evaluate Ada-LISTA on set-11 and compare to ISTA and FISTA, you may run the f
 python eval.py
 ```
 
-
-
+![Inpainting Result](figures/inpainting/Lena_ratio_0.5_T_20_lambd_0.1.png)
