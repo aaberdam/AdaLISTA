@@ -10,7 +10,7 @@ Abstract: Neural networks that are based on unfolding of an iterative solver, su
 
 ## Citations
 
-Please this paper in your publications if this code helps your research:
+Please cite this paper in your publications if this code helps your research:
 
 ```
 @article{aberdam2020ada,
@@ -25,17 +25,16 @@ Please this paper in your publications if this code helps your research:
 
 This repository contains: 
 
-- Edit text: `Main.py`
+- The main script is: `Main.py`. You may find several examples below.
+- The data generating functions are in `generating.py`, while `training.py` contains the training process of the models appears in `models.py`.
+- `eval.py` is the inference of a trained Ada-LISTA on the task of image inpainting.
+- `useful_utils.py` contains few technical functions.
+- `params.py` contains all the running parameters for `Main.py`.
+- `\figures` directory includes output figures.
 
 ## Prerequisites
 
-```
-torch
-numpy
-scipy
-matplotlib
-PIL
-```
+The prerequisites are detailed in 'requirements.txt'.
 
 ## Simulated Experiments
 We demonstrate the robustness of Ada-LISTA to three types of dictionary perturbations:
