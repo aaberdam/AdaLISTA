@@ -404,6 +404,7 @@ def fista(y, D, lambd=1.0, L=None, max_itr=100):
         z = x_curr + (t_prev - 1) / t_curr * (x_curr - x_prev)
     return x_curr
 
+
 def ista_inpainting(y, D, M, lambd=1.0, L=None, max_itr=100, same_L=True):
     """ISTA Solver.
 

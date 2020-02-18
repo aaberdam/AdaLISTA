@@ -27,7 +27,7 @@ BATCH_SIZE = 512
 cudaopt = True
 
 # Load Ada-LISTA Model
-model_adalista_path = (f"./saved_models_inpainting/adalista_T{T}")
+model_adalista_path = f"./saved_models_inpainting/adalista_T{T}"
 model_adalista = torch.load(model_adalista_path)
 model_adalista.eval()
 
@@ -88,6 +88,7 @@ def infer_ista(corrupt_patches, mask_patches, D, lambd, T, fista_flag=False, nor
     recon_patches = D @ x_hat
     return recon_patches
 
+
 def patches2image(recon_patches, name2print="ISTA"):
     # Un-normalization
     recon_patches *= np.expand_dims(mean_std, axis=-1)
@@ -123,36 +124,39 @@ for i in range(len(image_list)):
     corrupt_patches -= np.expand_dims(mean_avg, axis=-1)
     corrupt_patches /= np.expand_dims(mean_std, axis=-1)
 
-    # Ada-LISTA Inference
-    adalista_recon_patches = infer_adalista(corrupt_patches, mask_patches, D, model=model_adalista)
-    adalista_image, adalista_psnr = patches2image(adalista_recon_patches, name2print="Ada-LISTA")
-    
     # ISTA Inference
     ista_recon_patches = infer_ista(
         corrupt_patches, mask_patches, D, lambd, T + 1, fista_flag=False
     )
     ista_image, ista_psnr = patches2image(ista_recon_patches, name2print="ISTA")
-    
+
     # FISTA Inference
     fista_recon_patches = infer_ista(
         corrupt_patches, mask_patches, D, lambd, T + 1, fista_flag=True
     )
     fista_image, fista_psnr = patches2image(fista_recon_patches, name2print="FISTA")
-    
+
+    # Ada-LISTA Inference
+    adalista_recon_patches = infer_adalista(corrupt_patches, mask_patches, D, model=model_adalista)
+    adalista_image, adalista_psnr = patches2image(adalista_recon_patches, name2print="Ada-LISTA")
+
     # Plot figures
     fig = plt.figure(figsize=[30, 10])
-    plt.subplot(1, 3, 1)
+    plt.subplot(1, 4, 1)
+    plt.imshow(image * mask, "gray")
+    plt.title("Corrupted Image\n PSNR = %.3f" % corrupt_psnr, fontsize=18)
+    plt.subplot(1, 4, 2)
     plt.imshow(ista_image, "gray")
     plt.title("Ista Reconstruction\n PSNR = %.3f" % ista_psnr, fontsize=18)
-    plt.subplot(1, 3, 2)
+    plt.subplot(1, 4, 3)
     plt.imshow(fista_image, "gray")
     plt.title("Fista Reconstruction\n PSNR = %.3f" % fista_psnr, fontsize=18)
-    plt.subplot(1, 3, 3)
+    plt.subplot(1, 4, 4)
     plt.imshow(adalista_image, "gray")
     plt.title("Adalista Reconstruction\n PSNR = %.3f" % adalista_psnr, fontsize=18)
     fig.savefig(
         "./figures/inpainting/"
-        + image_list[i].split('.')[0]
+        + image_list[i].split(".")[0]
         + "_ratio_"
         + str(RATIO)
         + "_T_"
@@ -161,4 +165,4 @@ for i in range(len(image_list)):
         + str(lambd)
         + ".png"
     )
-    plt.show()
+    # plt.show()

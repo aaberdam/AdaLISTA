@@ -23,17 +23,14 @@ training_data.create_data_oracle_lista()
 
 # %% Train the different solvers
 useful_utils.print_section_seperator("Training")
-print(
-    "Number of unfoldings (T): start-%d, end-%d, step-%d."
-    % (params.tstart, params.tend, params.tstep)
-)
+print(f"Number of unfoldings (T): start-{params.tstart}, end-{params.tend}, step-{params.tstep}.")
 T_opt = range(params.tstart, params.tend, params.tstep)
 err_list = []
 for i in range(len(T_opt)):
     training_data.T = T_opt[i]
     err_dict = training_data.training_procedure()
     # Print errors
-    err_msg = "T %d" % (training_data.T)
+    err_msg = f"T {training_data.T}"
     for err_i in err_dict:
         err_msg += ", %s %.8f" % (err_i, err_dict[err_i])
     useful_utils.print_section_seperator(err_msg, subsec=True)
